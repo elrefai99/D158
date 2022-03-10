@@ -21,5 +21,5 @@ require('./middleware/App')(app);
 
 // Routers
 app.get('/',(req, res)=>{
-    res.render('index')
+    res.render('Page/HomePage')
 })
