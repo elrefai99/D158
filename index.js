@@ -3,10 +3,13 @@ const express = require('express'),
       http = require('http'),
       server = http.createServer(app),
       io = require('socket.io')(server),
-      mongo = require('mongoose');
+      mongo = require('mongoose'),
+      auth = require('./router/Auth'),
+      passport = require('passport'),
+      {ensureAuthenticated,forwardAuthenticated} = require('./config/AuthConfig');
 
 require('dotenv').config();
-
+require('./config/passport')(passport);
 // Connect Database
 const port = process.env.PORT || 1999
 mongo.connect(process.env.MONGODB, { useNewUrlParser: true ,useUnifiedTopology: true})
@@ -17,9 +20,11 @@ mongo.connect(process.env.MONGODB, { useNewUrlParser: true ,useUnifiedTopology: 
     }).catch(err => console.log(err));
 
 //Middleware
-require('./middleware/App')(app);
+require('./middleware/App')(app, passport);
 
 // Routers
-app.get('/',(req, res)=>{
-    res.render('Page/HomePage')
+app.get('/',ensureAuthenticated, (req, res)=>{
+    res.render('Page/HomePage',  {user: req.user})
 })
+
+app.use(auth)
