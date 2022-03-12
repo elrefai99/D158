@@ -6,6 +6,7 @@ const express = require('express'),
       mongo = require('mongoose'),
       auth = require('./router/Auth'),
       passport = require('passport'),
+      user = require('./router/User'),
       {ensureAuthenticated,forwardAuthenticated} = require('./config/AuthConfig');
 
 require('dotenv').config();
@@ -28,3 +29,4 @@ app.get('/',ensureAuthenticated, (req, res)=>{
 })
 
 app.use(auth)
+app.use(user)

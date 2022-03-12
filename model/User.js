@@ -17,7 +17,7 @@ const newUser = new Schema({
     },
     profileImage: {
         type: String,
-        default: "",
+        default: "user.jpeg",
     },
     followers: {
         type: Array,
@@ -35,7 +35,7 @@ const newUser = new Schema({
         type: String,
         max: 50,
     },
-    city: {
+    country: {
         type: String,
         max: 50,
     },
