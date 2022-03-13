@@ -10,12 +10,11 @@ router.get('/profile', ensureAuthenticated,(req, res) => res.render('Page/profil
 
 // Update Data
 router.post('/updateData', ensureAuthenticated, upload.single('profileImage') , async (req, res)=>{
-    const { username, country, from, desc}= req.body
     const user = req.user;
     const profileImage = req.file.filename;
 
     try{
-        const updateUser = await User.findByIdAndUpdate({_id: user.id}, {
+        await User.findByIdAndUpdate({_id: user.id}, {
             $set: req.body,
             profileImage: profileImage
         })

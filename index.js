@@ -7,7 +7,9 @@ const express = require('express'),
       auth = require('./router/Auth'),
       passport = require('passport'),
       user = require('./router/User'),
-      {ensureAuthenticated,forwardAuthenticated} = require('./config/AuthConfig');
+      {ensureAuthenticated,forwardAuthenticated} = require('./config/AuthConfig'),
+      Post = require('./model/Posts'),
+      post = require('./router/Post');
 
 require('dotenv').config();
 require('./config/passport')(passport);
@@ -25,8 +27,17 @@ require('./middleware/App')(app, passport);
 
 // Routers
 app.get('/',ensureAuthenticated, (req, res)=>{
-    res.render('Page/HomePage',  {user: req.user})
+    const userId = req.user.id;
+    Post.find()
+        .then(result =>{
+            res.render('Page/HomePage',  {user: req.user, result})
+        })
+})
+
+app.get((req, res)=>{
+    res.send('404')
 })
 
 app.use(auth)
 app.use(user)
+app.use(post)
