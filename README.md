@@ -347,3 +347,4 @@ npm run lint  // runs only TSLint
 ## npm install fails
 The current solution has an example for using a private npm repository. if you want to use the public npm repository, remove the .npmrc file.
 
+[![CircleCI](https://circleci.com/gh/mohamed-elrefai/D158/tree/D158-1.svg?style=svg)](https://circleci.com/gh/mohamed-elrefai/D158/tree/D158-1)
