@@ -9,7 +9,7 @@ const app:Application = express();
 dotenv.config();
 
 // Connect with database
-const url = 'mongodb+srv://mohamedmostafa:09705886877a@blogs.cq7zo.mongodb.net/baba?retryWrites=true&w=majority'
+const url = process.env.DATABASEURL
 const port = process.env.PORT || 1999
 // mongodb connection
 mongoose.connect(url)
